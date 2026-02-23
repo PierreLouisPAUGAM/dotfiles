@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+THEME_FILE="$HOME/.config/theme"
+current=$(cat "$THEME_FILE" 2>/dev/null || echo "macchiato")
+
+if [ "$current" = "macchiato" ]; then
+  new="latte"
+else
+  new="macchiato"
+fi
+
+echo "$new" > "$THEME_FILE"
+
+# Starship : changer la palette
+if [[ "$(uname)" == "Darwin" ]]; then
+  sed -i '' "s/palette = 'catppuccin_.*'/palette = 'catppuccin_$new'/" "$HOME/.config/starship.toml"
+else
+  sed -i "s/palette = 'catppuccin_.*'/palette = 'catppuccin_$new'/" "$HOME/.config/starship.toml"
+fi
+
+# Wezterm : toucher le fichier pour déclencher le reload
+if [[ "$(uname)" == "Darwin" ]]; then
+  touch "$HOME/.config/wezterm/wezterm.lua"
+else
+  touch "/mnt/c/Users/pierrelouis.paugam/.config/wezterm/wezterm.lua"
+fi
+
+echo "Theme switched to catppuccin $new"
