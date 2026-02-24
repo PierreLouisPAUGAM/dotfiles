@@ -31,3 +31,4 @@ Sur WSL, wezterm utilise un stub Windows qui fait `dofile` vers le fichier WSL.
 ## Git
 
 Ne jamais ajouter de `Co-Authored-By` dans les commits.
+Toujours utiliser `git --git-dir=$HOME/.dotfiles --work-tree=$HOME` (pas l'alias `dot` qui n'est pas disponible dans le shell Bash de Claude).
