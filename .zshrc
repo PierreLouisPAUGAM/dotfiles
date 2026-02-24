@@ -34,7 +34,7 @@ _update_starship_theme() {
   src="$HOME/.config/starship.toml"
   runtime="$HOME/.cache/starship.toml"
   if [[ ! -f "$runtime" ]] || [[ "$src" -nt "$runtime" ]] \
-     || ! grep -q "catppuccin_$flavour" "$runtime" 2>/dev/null; then
+     || ! grep -q "^palette = 'catppuccin_$flavour'" "$runtime" 2>/dev/null; then
     sed "s/palette = 'catppuccin_.*'/palette = 'catppuccin_$flavour'/" "$src" > "$runtime"
   fi
 }

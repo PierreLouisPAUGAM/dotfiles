@@ -35,7 +35,7 @@ disabled = false
 style = "bg:red fg:crust"
 
 [os.symbols]
-Windows = ""
+Windows = "󰖳"
 Ubuntu = "󰕈"
 SUSE = ""
 Raspbian = "󰐿"
@@ -47,7 +47,7 @@ Gentoo = "󰣨"
 Fedora = "󰣛"
 Alpine = ""
 Amazon = ""
-Android = ""
+Android = "󰀲"
 AOSC = ""
 Arch = "󰣇"
 Artix = "󰣇"
@@ -70,13 +70,13 @@ truncation_symbol = "…/"
 
 [directory.substitutions]
 "Documents" = "󰈙 "
-"Downloads" = " "
+"Downloads" = "󰇚 "
 "Music" = "󰝚 "
-"Pictures" = " "
+"Pictures" = "󰈟 "
 "Developer" = "󰲋 "
 
 [git_branch]
-symbol = ""
+symbol = "󰊢"
 style = "bg:yellow"
 format = '[[ $symbol $branch ](fg:crust bg:yellow)]($style)'
 
@@ -85,57 +85,57 @@ style = "bg:yellow"
 format = '[[($all_status$ahead_behind )](fg:crust bg:yellow)]($style)'
 
 [nodejs]
-symbol = ""
+symbol = "󰎙"
 style = "bg:green"
 format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
 
 [c]
-symbol = " "
+symbol = "󰙱"
 style = "bg:green"
 format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
 
 [rust]
-symbol = ""
+symbol = "󱘗"
 style = "bg:green"
 format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
 
 [golang]
-symbol = ""
+symbol = "󰟓"
 style = "bg:green"
 format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
 
 [php]
-symbol = ""
+symbol = "󰌟"
 style = "bg:green"
 format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
 
 [java]
-symbol = " "
+symbol = "󰬷"
 style = "bg:green"
 format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
 
 [kotlin]
-symbol = ""
+symbol = "󱈙"
 style = "bg:green"
 format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
 
 [haskell]
-symbol = ""
+symbol = "󰲒"
 style = "bg:green"
 format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
 
 [python]
-symbol = ""
+symbol = "󰌠"
 style = "bg:green"
 format = '[[ $symbol( $version)(\(#$virtualenv\)) ](fg:crust bg:green)]($style)'
 
 [docker_context]
-symbol = ""
+symbol = "󰡨"
 style = "bg:sapphire"
 format = '[[ $symbol( $context) ](fg:crust bg:sapphire)]($style)'
 
 [conda]
-symbol = "  "
+symbol = "󰏓 "
 style = "fg:crust bg:sapphire"
 format = '[$symbol$environment ]($style)'
 ignore_base = false
@@ -144,7 +144,7 @@ ignore_base = false
 disabled = false
 time_format = "%R"
 style = "bg:lavender"
-format = '[[  $time ](fg:crust bg:lavender)]($style)'
+format = '[[ 󰥔 $time ](fg:crust bg:lavender)]($style)'
 
 [line_break]
 disabled = true

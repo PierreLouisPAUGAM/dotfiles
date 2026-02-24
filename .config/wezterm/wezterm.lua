@@ -61,6 +61,7 @@ if is_windows then
 	config.default_prog = { "wsl.exe", "-d", "Ubuntu-24.04", "--cd", "~" }
 end
 
+config.font = wezterm.font("JetBrainsMono NF")
 config.font_size = 11.0
 config.color_scheme = "Catppuccin " .. flavour:gsub("^%l", string.upper)
 config.window_background_opacity = 1.0
