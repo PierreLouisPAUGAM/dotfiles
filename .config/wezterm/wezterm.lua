@@ -125,7 +125,7 @@ config.keys = {
 	},
 	{
 		key = "n",
-		mods = "CTRL|SHIFT",
+		mods = "CTRL|ALT",
 		action = wezterm.action_callback(function(win, pane)
 			pane:move_to_new_window()
 		end),
