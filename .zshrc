@@ -125,8 +125,8 @@ _update_bat_theme() {
   local flavour
   flavour=$(cat ~/.config/theme 2>/dev/null || echo macchiato)
   case "$flavour" in
-    latte)     export BAT_THEME="Catppuccin Latte" ;;
-    *)         export BAT_THEME="Catppuccin Macchiato" ;;
+    latte)     export BAT_THEME="Catppuccin Macchiato" ;;
+    *)         export BAT_THEME="Catppuccin Latte" ;;
   esac
 }
 _update_bat_theme

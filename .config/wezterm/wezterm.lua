@@ -148,7 +148,6 @@ config.keys = {
 			else
 				wezterm.run_child_process({ os.getenv("HOME") .. "/.local/bin/theme-toggle" })
 			end
-			win:toast_notification("Theme", "Theme toggled", nil, 2000)
 		end),
 	},
 	{ key = "Enter", mods = "SHIFT", action = wezterm.action.SendString("\x1b[13;2u") },
