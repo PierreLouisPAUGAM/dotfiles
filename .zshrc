@@ -150,11 +150,12 @@ precmd_functions+=(_update_fzf_theme)
 
 # ── Wezterm config sync (WSL only) ───────────────────────────
 if [[ "$(uname)" == "Linux" ]]; then
+  _wsl_win_home=$(wslpath "$(cmd.exe /c 'echo %USERPROFILE%' 2>/dev/null | tr -d '\r')")
   _sync_wezterm() {
     local src="$HOME/.config/wezterm/wezterm.lua"
     local marker="$HOME/.config/wezterm/.last_sync"
     if [[ -f "$src" ]] && [[ "$src" -nt "$marker" ]]; then
-      touch "/mnt/c/Users/pierrelouis.paugam/.config/wezterm/wezterm.lua"
+      touch "$_wsl_win_home/.config/wezterm/wezterm.lua"
       touch "$marker"
     fi
   }

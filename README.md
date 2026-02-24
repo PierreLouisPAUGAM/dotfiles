@@ -6,10 +6,10 @@ Configuration cross-platform (WSL2 / macOS) pour un environnement terminal unifi
 
 | Outil | Rôle |
 |---|---|
-| [wezterm](https://wezfurlong.org/wezterm/) | Emulateur de terminal (Windows / macOS) |
+| [wezterm](https://wezfurlong.org/wezterm/) | Émulateur de terminal (Windows / macOS) |
 | [zsh](https://www.zsh.org/) | Shell |
 | [starship](https://starship.rs/) | Prompt (preset catppuccin-powerline) |
-| [nvim](https://neovim.io/) + [LazyVim](https://www.lazyvim.org/) | Editeur |
+| [nvim](https://neovim.io/) + [LazyVim](https://www.lazyvim.org/) | Éditeur |
 | [fzf](https://github.com/junegunn/fzf) | Fuzzy finder |
 | [zoxide](https://github.com/ajeetdsouza/zoxide) | Navigation intelligente (`cd`) |
 | [mise](https://mise.jdx.dev/) | Gestionnaire de versions (node, python, go, etc.) |
@@ -25,28 +25,34 @@ Catppuccin Macchiato (dark) / Latte (light), appliqué de manière cohérente su
 
 **Toggle global** : `Ctrl+Shift+P` dans wezterm bascule l'ensemble de la stack entre dark et light mode.
 
-Le fichier `~/.config/theme` contient le flavour actif (`macchiato` ou `latte`) et sert de source de vérité pour tous les outils :
+Le fichier `~/.config/theme` (non traqué, état runtime) contient le flavour actif (`macchiato` ou `latte`) et sert de source de vérité pour tous les outils :
 
 ```
-~/.config/theme        <-- "macchiato" ou "latte"
+~/.config/theme        <-- "macchiato" ou "latte" (runtime, non traqué)
        |
+       +-- starship    : config runtime générée dans ~/.cache/starship.toml (precmd)
        +-- wezterm     : lit le fichier au chargement de la config
-       +-- starship    : palette mise a jour par theme-toggle (sed)
-       +-- nvim        : lit le fichier au demarrage + FocusGained
-       +-- fzf         : couleurs relues a chaque prompt (precmd)
+       +-- nvim        : lit le fichier au démarrage + FocusGained
+       +-- bat         : BAT_THEME mis à jour à chaque prompt (precmd)
+       +-- fzf         : couleurs relues à chaque prompt (precmd)
 ```
+
+`theme-toggle` écrit la nouvelle flaveur dans `~/.config/theme` et touche le fichier wezterm pour déclencher un reload. La mise à jour de starship, bat et fzf est gérée par les hooks `precmd` du shell, ce qui évite de modifier des fichiers traqués par le repo.
 
 ## Fichiers
 
 ```
 ~/.zshrc                                  Shell config (cross-platform)
-~/.config/starship.toml                   Prompt (catppuccin-powerline + palettes)
-~/.config/theme                           Flavour actif (macchiato|latte)
+~/.config/starship.toml                   Prompt template (palette par défaut : macchiato)
 ~/.config/fzf/catppuccin-macchiato        Couleurs fzf dark
 ~/.config/fzf/catppuccin-latte            Couleurs fzf light
 ~/.config/wezterm/wezterm.lua             Terminal config (cross-platform)
 ~/.config/nvim/                           Neovim (LazyVim)
-~/.local/bin/theme-toggle                 Script de bascule de theme
+~/.local/bin/theme-toggle                 Script de bascule de thème
+
+# Fichiers runtime (non traqués)
+~/.config/theme                           Flavour actif (macchiato|latte)
+~/.cache/starship.toml                    Config starship générée avec la bonne palette
 ```
 
 ## Installation
@@ -60,7 +66,7 @@ dot config status.showUntrackedFiles no
 dot checkout
 ```
 
-Sur WSL, creer le stub wezterm cote Windows :
+Sur WSL, créer le stub wezterm côté Windows :
 
 ```bash
 mkdir -p /mnt/c/Users/USERNAME/.config/wezterm
@@ -73,10 +79,10 @@ EOF
 
 ```bash
 dot status                    # voir les changements
-dot add ~/.zshrc              # stager un fichier modifie
+dot add ~/.zshrc              # stager un fichier modifié
 dot commit -m "update zshrc"  # commiter
 dot push                      # pousser
-dot pull                      # recuperer depuis l'autre machine
+dot pull                      # récupérer depuis l'autre machine
 ```
 
 ## Notes cross-platform
@@ -84,9 +90,9 @@ dot pull                      # recuperer depuis l'autre machine
 | Aspect | WSL | macOS |
 |---|---|---|
 | Plugins zsh | `/usr/share/` (apt) | `/opt/homebrew/share/` (brew) |
-| `sed -i` | `sed -i "..."` | `sed -i '' "..."` |
+| `sed -i` (scripts) | `sed -i "..."` | `sed -i '' "..."` |
 | wezterm config | Stub Windows + dofile vers WSL | Directement `~/.config/wezterm/wezterm.lua` |
-| wezterm `default_prog` | `wsl.exe -d Ubuntu-24.04` | Non necessaire |
-| wezterm `front_end` | `OpenGL` | Default (WebGpu) |
+| wezterm `default_prog` | `wsl.exe -d Ubuntu-24.04` | Non nécessaire |
+| wezterm `front_end` | `Software` | Default (WebGpu) |
 
-Les conditions OS sont gerees dans les fichiers eux-memes (`uname`, `wezterm.target_triple`).
+Les conditions OS sont gérées dans les fichiers eux-mêmes (`uname`, `wezterm.target_triple`).

@@ -16,7 +16,8 @@ echo "$new" > "$THEME_FILE"
 if [[ "$(uname)" == "Darwin" ]]; then
   touch "$HOME/.config/wezterm/wezterm.lua"
 else
-  touch "/mnt/c/Users/pierrelouis.paugam/.config/wezterm/wezterm.lua"
+  win_home=$(wslpath "$(cmd.exe /c 'echo %USERPROFILE%' 2>/dev/null | tr -d '\r')")
+  touch "$win_home/.config/wezterm/wezterm.lua"
 fi
 
 echo "Theme switched to catppuccin $new"

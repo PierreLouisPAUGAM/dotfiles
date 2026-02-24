@@ -34,8 +34,9 @@ local function get_flavour()
 			"-d",
 			"Ubuntu-24.04",
 			"--",
-			"cat",
-			"/home/paugam/.config/theme",
+			"bash",
+			"-c",
+			"cat ~/.config/theme",
 		})
 		if ok then
 			return stdout:gsub("%s+", "")
@@ -140,7 +141,9 @@ config.keys = {
 					"-d",
 					"Ubuntu-24.04",
 					"--",
-					"/home/paugam/.local/bin/theme-toggle",
+					"bash",
+					"-c",
+					"~/.local/bin/theme-toggle",
 				})
 			else
 				wezterm.run_child_process({ os.getenv("HOME") .. "/.local/bin/theme-toggle" })

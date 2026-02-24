@@ -8,20 +8,23 @@ Voir `~/README.md` pour la documentation complète.
 ## Fichiers de configuration
 
 - `~/.zshrc` — Config shell (cross-platform WSL/macOS)
-- `~/.config/starship.toml` — Prompt (preset catppuccin-powerline)
+- `~/.config/starship.toml` — Prompt template (palette par défaut: macchiato)
 - `~/.config/nvim/` — Neovim (LazyVim)
 - `~/.config/wezterm/wezterm.lua` — Terminal (cross-platform via `wezterm.target_triple`)
 - `~/.config/fzf/` — Couleurs fzf par flavour
-- `~/.config/theme` — Source de vérité du thème actif (`macchiato` ou `latte`)
 - `~/.local/bin/theme-toggle` — Script de bascule dark/light
+- `~/.config/theme` — Flavour actif, **non traqué** (état runtime)
+- `~/.cache/starship.toml` — Config starship runtime générée (non traquée)
 
 ## Theme toggle (Ctrl+Shift+P)
 
-`theme-toggle` met à jour `~/.config/theme`, puis :
-- `sed` sur `starship.toml` (palette)
-- `touch` sur le fichier wezterm (déclenche reload)
-- fzf relit les couleurs via `precmd` zsh
-- nvim relit le thème via autocmd `FocusGained`
+`theme-toggle` met à jour `~/.config/theme` et touche le fichier wezterm (reload). Les autres outils se mettent à jour via les hooks `precmd` du shell :
+- starship : config runtime régénérée dans `~/.cache/starship.toml`
+- bat : `BAT_THEME` mis à jour
+- fzf : couleurs relues
+- nvim : relit le thème via autocmd `FocusGained`
+
+Aucun fichier traqué n'est modifié par un toggle → `dot status` reste propre.
 
 Sur WSL, wezterm utilise un stub Windows qui fait `dofile` vers le fichier WSL.
 
