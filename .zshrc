@@ -20,6 +20,18 @@ fi
 # ── PATH ──────────────────────────────────────────────────────
 export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
 
+# ── Historique ──────────────────────────────────────────────
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000
+SAVEHIST=10000
+setopt APPEND_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt SHARE_HISTORY
+zshaddhistory() {
+  [[ $(echo -n "$1" | wc -l) -le 3 && ${#1} -le 500 ]]
+}
+
 # ── Éditeur par défaut ────────────────────────────────────────
 export EDITOR="nvim"
 export VISUAL="$EDITOR"
