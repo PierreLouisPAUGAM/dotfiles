@@ -34,16 +34,23 @@
 
 ## Prérequis
 
+> **WSL** — Ubuntu **24.04** requis. La config WezTerm cible `Ubuntu-24.04` explicitement
+> et certains outils (treesitter, Mason) nécessitent une GLIBC récente. Vérifier avec `lsb_release -rs`.
+
 <details>
 <summary><strong>CLI tools</strong></summary>
 
 ```bash
 # Debian/Ubuntu (WSL)
-sudo apt install zsh fzf bat ripgrep fd-find jq
-# bat s'installe sous le nom batcat, créer un lien :
-# ln -s /usr/bin/batcat ~/.local/bin/bat
-# fd s'installe sous le nom fdfind :
-# ln -s /usr/bin/fdfind ~/.local/bin/fd
+sudo apt install build-essential curl unzip zsh fzf bat ripgrep fd-find jq
+
+# bat s'installe sous le nom batcat, fd sous le nom fdfind :
+mkdir -p ~/.local/bin
+ln -s /usr/bin/batcat ~/.local/bin/bat
+ln -s /usr/bin/fdfind ~/.local/bin/fd
+
+# Activer zsh comme shell par défaut :
+chsh -s $(which zsh)
 
 # macOS
 brew install zsh fzf bat ripgrep fd jq
@@ -78,27 +85,84 @@ brew install zsh-autosuggestions zsh-syntax-highlighting
 ```bash
 mkdir -p "$(bat --config-dir)/themes"
 cd "$(bat --config-dir)/themes"
-curl -sLO https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Latte.tmTheme
-curl -sLO https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Macchiato.tmTheme
+curl -Lo 'Catppuccin Latte.tmTheme' 'https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Latte.tmTheme'
+curl -Lo 'Catppuccin Macchiato.tmTheme' 'https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Macchiato.tmTheme'
 bat cache --build
 ```
 
 </details>
 
-**Font** — [JetBrainsMono Nerd Font](https://www.nerdfonts.com/font-downloads), à installer côté hôte (Windows ou macOS).
+<details>
+<summary><strong>Clés SSH</strong></summary>
+
+Si des clés existent sur une autre machine/distro, les copier dans `~/.ssh/` puis fixer les permissions :
+
+```bash
+chmod 700 ~/.ssh && chmod 600 ~/.ssh/*
+```
+
+Sinon, générer une paire minimale :
+
+```bash
+ssh-keygen -t ed25519
+```
+
+Le `.zshrc` charge automatiquement les clés au démarrage via `ssh-add`. Il ne bloque pas si aucune clé n'existe, mais l'agent SSH sera vide.
+
+</details>
+
+**Font** — [JetBrainsMono Nerd Font](https://www.nerdfonts.com/font-downloads), à installer côté hôte :
+
+```powershell
+# Windows (scoop)
+scoop bucket add nerd-fonts && scoop install nerd-fonts/JetBrainsMono-NF
+```
+
+```bash
+# macOS (brew)
+brew install --cask font-jetbrains-mono-nerd-font
+```
 
 **Terminal** — [WezTerm](https://wezfurlong.org/wezterm/installation.html), installé côté hôte.
 
 ## Installation
 
+<details>
+<summary><strong>WSL — config WezTerm minimale pour premier démarrage</strong></summary>
+
+Si WezTerm ouvre `cmd.exe` au lieu de WSL, créer un stub minimal temporaire (PowerShell) :
+
+```powershell
+mkdir -Force "$env:USERPROFILE\.config\wezterm" | Out-Null
+@"
+local wezterm = require("wezterm")
+local config = wezterm.config_builder()
+config.default_prog = { "wsl.exe" }
+return config
+"@ | Set-Content "$env:USERPROFILE\.config\wezterm\wezterm.lua"
+```
+
+Ce fichier sera écrasé par le stub définitif (dofile vers WSL) à la fin de l'installation.
+
+</details>
+
+Ce sont des dotfiles personnels amenés à diverger — **forker d'abord** le repo sur GitHub, puis cloner le fork :
+
 ```bash
-git clone --bare https://github.com/PierreLouisPAUGAM/dotfiles.git ~/.dotfiles
+# Forker d'abord https://github.com/PierreLouisPAUGAM/dotfiles sur GitHub, puis :
+git clone --bare https://github.com/<VOTRE-USER>/dotfiles.git ~/.dotfiles
 alias dot='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 dot config status.showUntrackedFiles no
 dot checkout
 ```
 
 > Si `dot checkout` échoue à cause de fichiers existants, les sauvegarder ou les supprimer puis relancer.
+
+```bash
+# Optionnel : identité git dédiée au repo dotfiles (sans --global)
+git --git-dir=$HOME/.dotfiles --work-tree=$HOME config user.name "Prénom Nom"
+git --git-dir=$HOME/.dotfiles --work-tree=$HOME config user.email "email@example.com"
+```
 
 Initialiser le thème :
 
@@ -108,16 +172,32 @@ echo macchiato > ~/.config/theme
 ```
 
 <details>
-<summary><strong>WSL — stub WezTerm côté Windows</strong></summary>
+<summary><strong>Premier lancement Neovim</strong></summary>
+
+**Prérequis** : `build-essential` (gcc, make) pour treesitter, Node.js (via mise) pour Mason.
+
+Au premier `nvim`, plusieurs choses s'installent automatiquement :
+- **lazy.nvim** installe ~39 plugins
+- **Mason** installe ~18 LSP/formatters
+- **treesitter** compile ~31 parsers
+
+Attendre que tout finisse, quitter, puis relancer une seconde fois pour vérifier que tout est propre.
+
+Si des erreurs Mason rouges apparaissent → vérifier `node --version` et `gcc --version`.
+
+</details>
+
+<details>
+<summary><strong>WSL — stub WezTerm définitif côté Windows</strong></summary>
 
 ```bash
-mkdir -p /mnt/c/Users/<USERNAME>/.config/wezterm
-cat > /mnt/c/Users/<USERNAME>/.config/wezterm/wezterm.lua << 'EOF'
-return dofile("\\\\wsl$\\Ubuntu-24.04\\home\\<USERNAME>\\.config\\wezterm\\wezterm.lua")
+mkdir -p /mnt/c/Users/<WIN-USER>/.config/wezterm
+cat > /mnt/c/Users/<WIN-USER>/.config/wezterm/wezterm.lua << 'EOF'
+return dofile("\\\\wsl$\\Ubuntu-24.04\\home\\<WSL-USER>\\.config\\wezterm\\wezterm.lua")
 EOF
 ```
 
-Remplacer `<USERNAME>` par le nom d'utilisateur Windows et Linux correspondant.
+Remplacer `<WIN-USER>` par le nom d'utilisateur Windows (`echo $(/mnt/c/Windows/System32/cmd.exe /C "echo %USERNAME%" 2>/dev/null | tr -d '\r')`) et `<WSL-USER>` par le nom d'utilisateur Linux (`whoami`).
 
 </details>
 
