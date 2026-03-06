@@ -168,8 +168,9 @@ Claude Code — scoper les instructions au projet dotfiles (évite qu'elles poll
 
 ```bash
 project_key=$(echo "$HOME" | tr '/' '-')
-mkdir -p "$HOME/.claude/projects/$project_key"
-ln -sf "$HOME/.claude/dotfiles-claude.md" "$HOME/.claude/projects/$project_key/CLAUDE.md"
+mkdir -p "$HOME/.claude/projects/$project_key/memory"
+echo "Lire ~/.claude/dotfiles-claude.md pour les instructions dotfiles." \
+  > "$HOME/.claude/projects/$project_key/memory/MEMORY.md"
 ```
 
 Initialiser le thème :
