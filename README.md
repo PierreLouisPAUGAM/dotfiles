@@ -164,6 +164,14 @@ git --git-dir=$HOME/.dotfiles --work-tree=$HOME config user.name "Prénom Nom"
 git --git-dir=$HOME/.dotfiles --work-tree=$HOME config user.email "email@example.com"
 ```
 
+Claude Code — scoper les instructions au projet dotfiles (évite qu'elles polluent les projets sous `~/repos/`) :
+
+```bash
+project_key=$(echo "$HOME" | tr '/' '-' | sed 's/^-//')
+mkdir -p "$HOME/.claude/projects/$project_key"
+ln -sf "$HOME/.claude/dotfiles-claude.md" "$HOME/.claude/projects/$project_key/CLAUDE.md"
+```
+
 Initialiser le thème :
 
 ```bash
@@ -260,7 +268,8 @@ Le fichier `~/.config/theme` (non traqué) contient le flavour actif et sert de 
 └── dot-status                      État dotfiles (toast wezterm)
 .claude/
 ├── settings.json                   Config Claude Code (statusline)
-└── statusline.sh                   Statusline custom theme-aware
+├── statusline.sh                   Statusline custom theme-aware
+└── dotfiles-claude.md              Instructions Claude Code (scopées au projet)
 ```
 
 <details>
