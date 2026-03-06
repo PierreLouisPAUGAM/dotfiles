@@ -167,7 +167,7 @@ git --git-dir=$HOME/.dotfiles --work-tree=$HOME config user.email "email@example
 Claude Code — scoper les instructions au projet dotfiles (évite qu'elles polluent les projets sous `~/repos/`) :
 
 ```bash
-project_key=$(echo "$HOME" | tr '/' '-' | sed 's/^-//')
+project_key=$(echo "$HOME" | tr '/' '-')
 mkdir -p "$HOME/.claude/projects/$project_key"
 ln -sf "$HOME/.claude/dotfiles-claude.md" "$HOME/.claude/projects/$project_key/CLAUDE.md"
 ```
