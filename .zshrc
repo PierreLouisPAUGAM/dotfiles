@@ -111,6 +111,10 @@ alias path='echo $PATH | tr ":" "\n"'
 alias dot='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 capi() { curl -s "$@" | jq .; }
 
+# ── Extensions locales (~/.zshrc.d/*.zsh) ──────────────────
+for _zshrc_ext in ~/.zshrc.d/*.zsh(N); do source "$_zshrc_ext"; done
+unset _zshrc_ext
+
 # ── Docker contexts auto (depuis ~/.ssh/config # docker) ────
 docker-sync() {
   local ssh_hosts=""
