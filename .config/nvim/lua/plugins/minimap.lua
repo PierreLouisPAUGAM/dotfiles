@@ -1,5 +1,6 @@
 return {
   "Isrothy/neominimap.nvim",
+  version = "v3.x.x",
   lazy = false,
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
@@ -8,10 +9,12 @@ return {
   init = function()
     vim.g.neominimap = {
       auto_enable = true,
-      layout = "float",
-      float = {
+      layout = "split",
+      split = {
         minimap_width = 12,
-        window_border = "none",
+        fix_width = true,
+        direction = "right",
+        close_if_last_window = true,
       },
       treesitter = { enabled = true },
       git = { enabled = true },
@@ -22,6 +25,6 @@ return {
     }
   end,
   keys = {
-    { "<leader>um", "<cmd>Neominimap toggle<cr>", desc = "Toggle minimap" },
+    { "<leader>um", "<cmd>Neominimap Toggle<cr>", desc = "Toggle minimap" },
   },
 }
