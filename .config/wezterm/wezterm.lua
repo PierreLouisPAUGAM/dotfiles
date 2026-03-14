@@ -63,6 +63,7 @@ end
 
 config.font = wezterm.font("JetBrainsMono NF")
 config.font_size = 11.0
+config.use_ime = false
 config.color_scheme = "Catppuccin " .. flavour:gsub("^%l", string.upper)
 config.window_background_opacity = 1.0
 config.window_padding = { left = 8, right = 8, top = 8, bottom = 8 }
