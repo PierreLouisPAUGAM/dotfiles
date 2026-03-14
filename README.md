@@ -164,14 +164,7 @@ git --git-dir=$HOME/.dotfiles --work-tree=$HOME config user.name "Prénom Nom"
 git --git-dir=$HOME/.dotfiles --work-tree=$HOME config user.email "email@example.com"
 ```
 
-Claude Code — scoper les instructions au projet dotfiles (évite qu'elles polluent les projets sous `~/repos/`) :
-
-```bash
-project_key=$(echo "$HOME" | tr '/' '-')
-mkdir -p "$HOME/.claude/projects/$project_key/memory"
-echo "Lire ~/.claude/dotfiles-claude.md pour les instructions dotfiles." \
-  > "$HOME/.claude/projects/$project_key/memory/MEMORY.md"
-```
+Claude Code — les instructions dotfiles sont gérées via le système de mémoire projet, scopé à `~/` (ne pollue pas les projets sous `~/repos/`). Sur une nouvelle machine, demander à Claude de lire `~/.claude/dotfiles-claude.md` et de le sauvegarder en mémoire.
 
 Initialiser le thème :
 
