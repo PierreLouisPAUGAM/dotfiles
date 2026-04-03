@@ -25,6 +25,6 @@ return {
     }
   end,
   keys = {
-    { "<leader>um", "<cmd>Neominimap Toggle<cr>", desc = "Toggle minimap" },
+    { "<leader>uM", "<cmd>Neominimap Toggle<cr>", desc = "Toggle minimap" },
   },
 }
