@@ -2,5 +2,11 @@
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh"
-  }
+  },
+  "language": "Français",
+  "tui": "fullscreen",
+  "theme": "light",
+  "editorMode": "normal",
+  "autoCompactEnabled": false,
+  "remoteControlAtStartup": true
 }
