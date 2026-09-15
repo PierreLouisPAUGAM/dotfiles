@@ -4,9 +4,11 @@
     "command": "~/.claude/statusline.sh"
   },
   "language": "Français",
+  "cleanupPeriodDays": 3650,
   "tui": "fullscreen",
   "theme": "light",
   "editorMode": "normal",
   "autoCompactEnabled": false,
-  "remoteControlAtStartup": true
+  "remoteControlAtStartup": false,
+  "agentPushNotifEnabled": true
 }
