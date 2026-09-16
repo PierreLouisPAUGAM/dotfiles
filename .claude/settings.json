@@ -3,6 +3,9 @@
     "type": "command",
     "command": "~/.claude/statusline.sh"
   },
+  "env": {
+    "CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION": "5000"
+  },
   "language": "Français",
   "cleanupPeriodDays": 3650,
   "tui": "fullscreen",
