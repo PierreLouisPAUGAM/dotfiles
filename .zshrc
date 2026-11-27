@@ -109,6 +109,7 @@ lzd() {
 alias reload='source ~/.zshrc'
 alias path='echo $PATH | tr ":" "\n"'
 alias dot='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+alias sshs='sshs --no-sort'
 capi() { curl -s "$@" | jq .; }
 
 # ── Extensions locales (~/.zshrc.d/*.zsh) ──────────────────
