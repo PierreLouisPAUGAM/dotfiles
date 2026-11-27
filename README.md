@@ -30,6 +30,7 @@
 | [fd](https://github.com/sharkdp/fd) | Remplacement de `find` |
 | [jq](https://github.com/jqlang/jq) | Traitement JSON |
 | [lazydocker](https://github.com/jesseduffield/lazydocker) | TUI Docker (optionnel) |
+| [sshs](https://github.com/quantumsheep/sshs) | TUI SSH : liste les hôtes de `~/.ssh/config`, `Include` compris |
 | [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | Assistant CLI (statusline custom theme-aware) |
 
 ## Prérequis
@@ -62,7 +63,8 @@ Les outils suivants s'installent indépendamment :
 [zoxide](https://github.com/ajeetdsouza/zoxide#installation) ·
 [mise](https://mise.jdx.dev/getting-started.html) ·
 [eza](https://github.com/eza-community/eza#installation) ·
-[lazydocker](https://github.com/jesseduffield/lazydocker#installation) (optionnel)
+[lazydocker](https://github.com/jesseduffield/lazydocker#installation) (optionnel) ·
+[sshs](https://github.com/quantumsheep/sshs) (`mise use -g github:quantumsheep/sshs@latest`)
 
 </details>
 
